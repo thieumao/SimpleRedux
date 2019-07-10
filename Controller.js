@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, { Fragment } from 'react';
 import {
   StyleSheet,
@@ -14,10 +6,10 @@ import {
   Button,
   Component,
 } from 'react-native';
-import Controller from './Controller';
-import { Provider, connect, } from 'react-redux';
+import ChangeColor from './ChangeColor';
+import { Provider, connect, } from 'react-redux'
 
-class App extends React.Component {
+class Controller extends React.Component {
 
   onIncrease = () => {
     this.props.dispatch({ type: 'UP' });
@@ -28,13 +20,22 @@ class App extends React.Component {
   }
 
   render() {
-    const color = this.props.myHighlight ? "red" : "black"
     return (
       <View style={styles.container}>
 
-        <Text style={{ fontSize: 40, color }}> {this.props.myValue} </Text>
+        <Button
+          style={ styles.button }
+          onPress={this.onIncrease}
+          title="Increase"
+        />
 
-        <Controller />
+        <Button
+          style={ styles.button }
+          onPress={this.onDecrease}
+          title="Decrease"
+        />
+
+        <ChangeColor />
 
       </View>
     )
@@ -42,25 +43,17 @@ class App extends React.Component {
 }
 
 function mapStateToProps(state) {
-  return {
-    myValue: state.value,
-    myHighlight: state.highlight
-  };
+  return { myValue: state.value };
 }
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps)(Controller);
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
-  },
-  text: {
-    color: 'red',
-    height: 40,
   },
   button: {
     height: 40,
